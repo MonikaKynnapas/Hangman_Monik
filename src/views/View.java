@@ -5,6 +5,7 @@ import helpers.RealDateTime;
 import models.Model;
 import models.datastructures.DataScores;
 import views.panels.GameBoard;
+import views.panels.GameImages;
 import views.panels.GameResult;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * This class creates a main window (extends JFrame)
@@ -43,7 +45,7 @@ public class View extends JFrame {
      * Let's set the JFrame properties
      */
     private void setupFrame() {
-        this.setTitle("Hangman 2023"); // Main window title text
+        this.setTitle("Lõpuks valminud Hangman 2024"); // Main window title text
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Makes the main window closeable
         this.setLayout(new BorderLayout()); // Sets a new layout for the window
         this.setMinimumSize(new Dimension(590,250));
@@ -58,6 +60,7 @@ public class View extends JFrame {
 
         this.add(gameBoard, BorderLayout.NORTH); // Places the panel according to BorderLayout
         this.add(gameResult, BorderLayout.CENTER); // Places the panel according to BorderLayout
+        this.getRootPane().setDefaultButton(getBtnSend()); // Enter klahv töötab Saada täht puhul
     }
     // All methods register* in file Controller.java
     /**
@@ -73,7 +76,16 @@ public class View extends JFrame {
      * @param al actionListener
      */
     public void registerButtonNew(ActionListener al) {
-        gameBoard.getBtnNew().addActionListener(al);
+        gameBoard.getBtnNew().addActionListener(e -> {
+            al.actionPerformed(e);
+            model.setMissedLetters(new ArrayList<>());  // Clear missed letters
+            getLblError().setText("Valesti 0 täht(e). ");
+        });
+    }
+
+    public void registerButtonSend(ActionListener al) {
+
+        gameBoard.getBtnSend().addActionListener(al);
     }
 
     /**
@@ -81,7 +93,11 @@ public class View extends JFrame {
      * @param al actionListener
      */
     public void registerButtonCancel(ActionListener al) {
-        gameBoard.getBtnCancel().addActionListener(al);
+        gameBoard.getBtnCancel().addActionListener(e -> {
+            al.actionPerformed(e);
+            model.setMissedLetters(new ArrayList<>());  // Clear missed letters
+            getLblError().setText("Valesti 0 täht(e). ");
+        });
     }
 
     /**
@@ -89,6 +105,7 @@ public class View extends JFrame {
      * @param il itemListener
      */
     public void registerComboBoxChange(ItemListener il) {
+
         gameBoard.getCmbCategory().addItemListener(il);
     }
 
@@ -196,5 +213,85 @@ public class View extends JFrame {
      */
     public JTextField getTxtChar() {
         return gameBoard.getTxtChar();
+    }
+
+    public JComboBox<String> getCmbCategory() {
+        return gameBoard.getCmbCategory();
+    }
+
+    /**
+     * Tagastab uue mängu nupu
+     *
+     * @return JButton
+     */
+    public JButton getBtnNew() {
+        return gameBoard.getBtnNew();
+    }
+
+    /**
+     * Tagastab nupu Saada tähte nupu
+     *
+     * @return JButton
+     */
+    public JButton getBtnSend() {
+        return gameBoard.getBtnSend();
+    }
+
+    /**
+     * Tagastab Cancel nupu
+     *
+     * @return JButton
+     */
+    public JButton getBtnCancel() {
+        return gameBoard.getBtnCancel();
+    }
+
+    /**
+     * Tagsatab lbalei mis sisaldab vigast infot
+     *
+     * @return JLabel
+     */
+    public JLabel getLblError() {
+        return gameBoard.getLblError();
+    }
+
+    /**
+     * Seadistab mängu ALGSEISU nuppude ja tekstiväljadega seoses. See kutsuda siis, kui kogu mängu info on olemas.
+     */
+    public void setStartGame() {
+        getCmbCategory().setEnabled(false); // Comboboxi ei saa valida
+        getBtnNew().setEnabled(false); // Mängimise ajal ei saa uut mängu alustada
+        getTxtChar().setEnabled(true); // Tähte saab sisestada
+        getBtnSend().setEnabled(true); // Saada täht nuppu saab kasutada
+        getBtnCancel().setVisible(true);   // Mängu saab katkestada
+
+    }
+
+    /**
+     * Seadistab mängu LÕPPSEISU nuppude ja tekstiväljadega seoses. See kustuda siis kui mängu lõpp tulemus on teada
+     * ja mäng on KINDLASTI lõppenud
+     *
+     * @return
+     */
+    public boolean setEndGame() {
+        getCmbCategory().setEnabled(true); // Comboboxi saab  valida
+        getBtnNew().setEnabled(true); // Saab uut mängu alustada
+        getTxtChar().setEnabled(false); // Tähte ei saa sisestada
+        getBtnSend().setEnabled(false); // Saada täht nuppu ei saa kasutada
+        getBtnCancel().setVisible(false);  // Mängu ei saa enam katkestada
+        getTxtChar().setText("");   // Sisestatud tähe tühjendamine
+        getLblError().setText("Valesti 0 täht(e). "); // Muuda vigade teavitus vaikimisi tekstiks
+        model.setMissedLetters(new ArrayList<>());
+
+        getLblError().setForeground(Color.BLACK); // Muuda teksti värv vaikimsii mustaks
+        return false;
+    }
+
+    /**
+     * Tagastab mängulaual olevad pildid
+     * @return GameImages
+     */
+    public GameImages getGameImages() {
+        return gameBoard.getGameImages();
     }
 }

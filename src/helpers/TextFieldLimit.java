@@ -6,7 +6,7 @@ import javax.swing.text.PlainDocument;
 
 /**
  * Limits the number of characters in a JTextField field. In this variant, it is one character.
- * <a href="https://www.tutorialspoint.com/how-can-we-limit-the-number-of-characters-inside-a-jtextfield-in-java">TextFieldLimit saadud lahendus</a>
+ * <a href="https://www.tutorialspoint.com/how-can-we-limit-the-number-of-characters-inside-a-jtextfield-in-java">TextFieldLimit </a>
  */
 public class TextFieldLimit extends PlainDocument {
     private final int limit;

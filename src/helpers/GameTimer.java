@@ -45,6 +45,7 @@ public class GameTimer {
      */
     public void startTimer() {
         this.timer.start();
+        System.out.println("Timer started!");
     }
 
     /**
@@ -52,6 +53,7 @@ public class GameTimer {
      */
     public void stopTimer() {
         this.timer.stop();
+        System.out.println("Timer stopped! Played time: " + getPlayedTimeInSeconds() + " seconds");
     }
 
     /**
@@ -80,23 +82,10 @@ public class GameTimer {
 
     /**
      * Sets the seconds
-     * @param seconds sekundid
+     * @param seconds seconds
      */
     public void setSeconds(int seconds) {
         this.seconds = seconds;
-    }
-
-    /**
-     * Adds seconds to the time (penalty)
-     * @param seconds seconds
-     */
-    public void addSeconds(int seconds) {
-        if((this.seconds + seconds) >= 60) {
-            minutes++;
-            this.seconds = (this.seconds + seconds) - 60;
-        } else {
-            this.seconds += seconds;
-        }
     }
 
     /**

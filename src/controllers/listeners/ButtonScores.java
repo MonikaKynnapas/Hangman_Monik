@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 public class ButtonScores implements ActionListener {
     private final Model model;
     private final View view;
-    private final String[] header = new String[] {"Date", "Name", "Word", "Letters", "Game time"}; // Leaderboard header
+    private final String[] header = new String[] {"Kuupäev", "Nimi", "Sõna", "Tähed", "Mängu aeg"}; // Leaderboard header
     private final DefaultTableModel dtm = new DefaultTableModel(header,0); // Empty table with header
     private final JTable table = new JTable(dtm);
     private JDialog dialogScore; // Small Dialog window
@@ -43,7 +43,7 @@ public class ButtonScores implements ActionListener {
         table.getColumnModel().getColumn(4).setCellRenderer(center); // Center the fourth column
 
         dialogScore.add(new JScrollPane(table)); // Scrollbar
-        dialogScore.setTitle("Leaderboard"); // Dialog title text
+        dialogScore.setTitle("Edetabel"); // Dialog title text
         dialogScore.pack();
         dialogScore.setLocationRelativeTo(null); // Center on screen
         dialogScore.setModal(true); // The main window cannot be clicked
@@ -56,12 +56,12 @@ public class ButtonScores implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         new Database(model).selectScores(); // Read the data from the database List again
-        if(model.getDataScores().size() > 0) { // if data in array
+        if(!model.getDataScores().isEmpty()) { // if data in array
             view.updateScoresTable(); // Update leaderboard
             dialogScore.setVisible(true); // Show dialog window
             // view.getGameBoard().getTxtChar().requestFocus(); // Not needed here
         } else {
-            JOptionPane.showMessageDialog(view, "Play first! The leaderboard is empty!");
+            JOptionPane.showMessageDialog(view, "Enne mängi! Edetabel on veel tühi!");
         }
     }
 }

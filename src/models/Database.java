@@ -24,6 +24,7 @@ public class Database {
         this.model = model;
         this.databaseUrl = "jdbc:sqlite:" + model.getDatabaseFile();
         this.selectUniqueCategories(); // ComboBox needs categories from the table
+        this.selectScores(); // Leaderboard needs data from the table
     }
 
     /**

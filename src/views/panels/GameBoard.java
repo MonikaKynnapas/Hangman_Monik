@@ -2,6 +2,7 @@ package views.panels;
 
 import helpers.TextFieldLimit;
 import models.Model;
+import views.View;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -68,7 +69,7 @@ public class GameBoard extends JPanel {
         pnlComponents.add(lblTime, gbc);
 
         // Second Line
-        JLabel lblCategory = new JLabel("Category");
+        JLabel lblCategory = new JLabel("Kategooria");
         gbc.gridx = 0; // Veerg
         gbc.gridy = 1; // rida
         gbc.gridwidth = 1; // Back one column wide
@@ -79,13 +80,13 @@ public class GameBoard extends JPanel {
         gbc.gridy = 1; // rida
         pnlComponents.add(cmbCategory, gbc);
 
-        btnNew = new JButton("New Game");
+        btnNew = new JButton("Uus mäng");
         gbc.gridx = 2; // Veerg
         gbc.gridy = 1; // rida
         pnlComponents.add(btnNew, gbc);
 
         // Third line
-        JLabel lblChar = new JLabel("Input character");
+        JLabel lblChar = new JLabel("Sisesta täht");
         gbc.gridx = 0; // Veerg
         gbc.gridy = 2; // rida
         pnlComponents.add(lblChar, gbc);
@@ -108,28 +109,28 @@ public class GameBoard extends JPanel {
         gbc.gridy = 2; // rida
         pnlComponents.add(txtChar, gbc);
 
-        btnSend = new JButton("Send");
+        btnSend = new JButton("Saada");
         btnSend.setEnabled(false);
         gbc.gridx = 2; // Veerg
         gbc.gridy = 2; // rida
         pnlComponents.add(btnSend, gbc);
 
         // Fourth line
-        lblError = new JLabel("Wrong 0 letter(s)");
+        lblError = new JLabel("Valesti arvatud tähti 0");
         gbc.gridx = 0; // Veerg
         gbc.gridy = 3; // rida
         gbc.gridwidth = 3; // Over three columns
         pnlComponents.add(lblError, gbc);
 
         // Fifth line
-        btnCancel = new JButton("Cancel the game");
+        btnCancel = new JButton("Katkesta mäng");
         btnCancel.setEnabled(false);
         gbc.gridx = 0; // Veerg
         gbc.gridy = 4; // rida
         gbc.gridwidth = 1; // Back one column wide
         pnlComponents.add(btnCancel, gbc);
 
-        btnScore = new JButton("Leaderboard");
+        btnScore = new JButton("Edetabel");
         gbc.gridx = 1; // Veerg
         gbc.gridy = 4; // rida
         pnlComponents.add(btnScore, gbc);
@@ -198,5 +199,8 @@ public class GameBoard extends JPanel {
     public GameImages getGameImages() {
         return gameImages;
     }
+
+
+    public JLabel getLblError() {return lblError;}
 
 }

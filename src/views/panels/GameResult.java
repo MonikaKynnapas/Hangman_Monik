@@ -8,7 +8,7 @@ import java.awt.*;
  * Panel for guess word. Contains one JLabel
  */
 public class GameResult extends JPanel {
-    private final JLabel lblResult = new JLabel("L E T ' S  P L A Y"); // Default word
+    private final JLabel lblResult = new JLabel("H A K K A M E  M Ä N G I M A !"); // Default word
 
     /**
      * Constructor for the GameResult panel. This is always done when the object is created. It will be done once!
