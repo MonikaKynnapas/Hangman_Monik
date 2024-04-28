@@ -16,11 +16,8 @@ public class AppMain {
      */
     private static void start() {
         Model model = new Model(); // Create Model
-        // Creates the main window and all the necessary panels after that with the labels and text fields of the
-        // buttons there
         View view = new View(model);
         new Controller(model, view); // For real-time, game-time and button functionality
-
         view.pack(); // Adjusts the objects in the main window to "fit"
         view.setLocationRelativeTo(null); // Main window in the center of the screen
         view.setVisible(true); // Makes the main window visible. From here on, the user can click on the main window
